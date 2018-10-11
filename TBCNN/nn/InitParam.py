@@ -10,8 +10,9 @@ import numpy as np
 def InitParam(OldWeights, num = None, newWeights = None, upper = None, lower = None):
 
     oldlen = len(OldWeights)    
-    if newWeights != None:
-        newWeights = np.array(newWeights)    
+    # if newWeights != None:
+    if newWeights is not None:
+        newWeights = np.array(newWeights)
         num = len(newWeights)
         OldWeights = np.concatenate((OldWeights, newWeights.reshape(-1) ))
         

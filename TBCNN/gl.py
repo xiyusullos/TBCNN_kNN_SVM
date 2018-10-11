@@ -8,8 +8,11 @@ Created on Tue May 20 16:01:35 2014
 ignoreDecl = True # prune declaration branches
 reConstruct = True # rename While, DoWhile, For ==> Loop
 tokenMap ='../tokenMap.txt'
-datadir =  'D:/data/original_data/'
-targetdir = 'D:/data/prun_semantic/TBCNN_RvNN/network/'
+# datadir =  'D:/data/original_data/'
+# targetdir = 'D:/data/prun_semantic/TBCNN_RvNN/network/'
+base_path = '../../'
+datadir =  base_path + './data/original_data/'
+targetdir = base_path + './data/prun_semantic/TBCNN_RvNN/network/'
 #targetdir ='C:/Users/anhpv/Desktop/RNN_Networks/'
 
 margin = 1

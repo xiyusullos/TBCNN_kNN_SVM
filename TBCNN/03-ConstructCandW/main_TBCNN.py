@@ -1,3 +1,5 @@
+import re
+
 import constructNetwork_TBCNN as TC
 import cPickle as p
 from nn import serialize
@@ -249,8 +251,11 @@ def GetMajorFunction(root):
 # layers = InitByNodes(nodes)
 
 def InitNetbyText(text=''):
-    parser = pycparser.c_parser.CParser()
-    ast = parser.parse(text=text)  # Parse code to AST
+# def InitNetbyText(text, filename='', debuglevel=0):
+#     parser = pycparser.c_parser.CParser()
+    ast = pycparser.parse_file(filename=text, use_cpp=True)  # Parse code to AST
+    # ast = parser.parse(text, filename=filename, debuglevel=debuglevel)  # Parse code to AST
+    # ast = pycparser.parse_file(filename=filename)
     if gl.reConstruct:  # reconstruct braches of For, While, DoWhile
         ast.reConstruct()
 
@@ -295,9 +300,12 @@ if __name__ == "__main__":
                 if onefile.endswith(".txt"):
                     instream = open(onefile, 'r')
                     text = instream.read()
+                    text = text.replace('\r\n', '\n')
                     instream.close()
 
-                    layers = InitNetbyText(text=text)
+                    # layers = InitNetbyText(text=text)
+                    layers = InitNetbyText(text=onefile)
+                    # layers = InitNetbyText('', filename=onefile)
 
                     count += 1
                     # print 'count = ',count
@@ -309,7 +317,8 @@ if __name__ == "__main__":
                         os.makedirs(directory)
                     serialize.serialize(layers, directory + '/seri_' + filename)
 
-            except:
+            except Exception as e:
+                print '!!! error', e
                 print 'ooooops, parsing error for', onefile
                 continue
 
